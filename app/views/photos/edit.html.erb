@@ -1,0 +1,6 @@
+<% provide(:title, ": #{@photo.title}") %>
+<%= form_for @photo, :url => photo_path(@photo), :html => { :multipart => true }, :method => :patch do |f| %>
+  <%= link_to image_tag( @photo.logo.url(:thumb) ), @photo.logo.url %>
+  <%= render :partial => 'form', :locals => { :f => f } %>
+  <%= f.submit 'Update' %>
+<% end %>

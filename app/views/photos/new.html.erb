@@ -1,0 +1,5 @@
+<%= form_for @photo, :url => photos_path, :html => { :multipart => true, :role => "form" } do |f| %>
+
+  <%= render "form", :f => f %>
+  <%= f.submit 'Create', :class => "btn btn-primary" %>
+<% end %>

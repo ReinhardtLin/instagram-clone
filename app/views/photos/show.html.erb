@@ -1,0 +1,6 @@
+<% provide(:title, ": #{@photo.title}") %>
+<%= link_to image_tag( @photo.logo.url(:thumb) ), @photo.logo.url %>
+<%= @photo.title %>
+<%= simple_format(@photo.description) %>
+
+<p><%= link_to 'Back to Index', photos_path, class: "btn btn-primary" %></p>
