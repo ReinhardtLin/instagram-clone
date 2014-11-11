@@ -44,6 +44,12 @@ ActiveRecord::Schema.define(version: 20141111112652) do
   end
 
   create_table "users", force: true do |t|
+    t.string   "email"
+    t.string   "name"
+    t.string   "image"
+    t.string   "fb_uid"
+    t.string   "fb_token"
+    t.datetime "fb_expires_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

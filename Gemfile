@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'kaminari'
 gem 'paperclip'
+gem 'omniauth-facebook'
 
 group :development do
   gem 'better_errors'
