@@ -1,6 +1,23 @@
 <% provide(:title, ": #{@photo.title}") %>
 <%= link_to image_tag( @photo.logo.url(:thumb) ), @photo.logo.url %>
+<h3>Photo Title</h3>
 <%= @photo.title %>
+<h3>Photo Description</h3>
 <%= simple_format(@photo.description) %>
+
+<h3>Comments</h3>
+<ol>
+  <% @photo.comments.each do |comment| %>
+  <li>
+    <%= comment.content %>
+  </li>
+  <% end %>
+</ol>
+
+<h3>New comment</h3>
+<%= form_for Comment.new, :url => photo_comments_path(@photo) do |f| %>
+  <%= f.text_area :content %>
+  <%= f.submit "Reply" %>
+<% end %>
 
 <p><%= link_to 'Back to Index', photos_path, class: "btn btn-primary" %></p>
