@@ -1,13 +1,29 @@
 <table border="1px">
+  <tr>
+    <th>Photo</th>
+    <th>Title</th>
+    <th>Author</th>
+    <th>Operation</th>
+  </tr>
+
   <% @photos.each do |photo| %>
   <tr>
     <td><%= link_to image_tag( photo.logo.url(:thumb) ), photo.logo.url %></td>
     <td><%= photo.title %></td>
-    <td><%= link_to 'Show Photo', photo_path(photo) %></td>
-    <td><%= link_to 'Edit Photo', edit_photo_path(photo) %></td>
-    <td><%= link_to 'Delete Photo', photo_path(photo), :method => :delete %></td>
+    <td>
+      <% photo.authors.each do |a| %>
+        <%= link_to a.display_name, user_path(a) %>
+      <% end %>
+    </td>
+    <td>
+      <%= link_to 'View Photo', photo_path(photo) %>
+      <%= link_to 'Edit Photo', edit_photo_path(photo) %>
+      <%= link_to 'Delete Photo', photo_path(photo), :method => :delete %>
+    </td>
   </tr>
   <% end %>
 </table>
 
 <%= link_to 'New Photo', new_photo_path %>
+<%= link_to "Logout", auth_signout_path, :method => :delete %></a>
+<%#= paginate @photos %>

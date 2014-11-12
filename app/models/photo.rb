@@ -11,4 +11,14 @@ class Photo < ActiveRecord::Base
   validates_presence_of :logo_file_name, :title
   has_attached_file :logo, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
   validates_attachment_content_type :logo, :content_type => /\Aimage\/.*\Z/
+
+  def authors
+    arr = [self.user]
+    arr = arr +  self.comments.map{ |c| c.user }
+    arr.compact.uniq
+  end
+
+  def can_delete_by?(user)
+    (self.user == user ) || user.admin?
+  end
 end

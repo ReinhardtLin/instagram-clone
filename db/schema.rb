@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141111112652) do
+ActiveRecord::Schema.define(version: 20141112055942) do
 
   create_table "comments", force: true do |t|
     t.text     "content"
@@ -44,14 +44,15 @@ ActiveRecord::Schema.define(version: 20141111112652) do
   end
 
   create_table "users", force: true do |t|
-    t.string   "email"
-    t.string   "name"
-    t.string   "image"
+    t.string   "email",         default: "", null: false
+    t.string   "name",          default: "", null: false
+    t.string   "image",         default: "", null: false
     t.string   "fb_uid"
     t.string   "fb_token"
     t.datetime "fb_expires_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "role"
   end
 
 end

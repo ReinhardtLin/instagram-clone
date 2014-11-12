@@ -4,6 +4,8 @@ Rails.application.routes.draw do
     resources :comments, :controller => 'photo_comments'
   end
 
+  resources :users
+
   get '/auth/:provider/callback', :to => 'sessions#create'
   get '/auth/failure', to: 'sessions#failure'
   delete '/auth/signout', to: 'sessions#destroy'

@@ -3,7 +3,7 @@ class PhotoCommentsController < ApplicationController
 
   def create
     @comment = @photo.comments.build( comment_params )
-    # @comment.user = current_user
+    @comment.user = current_user
     if @comment.save
       redirect_to photo_url( @photo )
     else
@@ -14,10 +14,10 @@ class PhotoCommentsController < ApplicationController
   def destroy
     @comment = @photo.comments.find( params[:id] )
 
-    # if comment.can_delete_by?(current_user)
-    @comment.destroy
-    # end
-    redirect_to photo_url( @photo )
+    if @comment.can_delete_by?(current_user)
+      @comment.destroy
+      redirect_to photo_url( @photo )
+    end
   end
 
   private

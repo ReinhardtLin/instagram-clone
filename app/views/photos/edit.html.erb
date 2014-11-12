@@ -4,3 +4,15 @@
   <%= render :partial => 'form', :locals => { :f => f } %>
   <%= f.submit 'Update' %>
 <% end %>
+
+<h3>Comments</h3>
+<ol>
+  <% @photo.comments.each do |comment| %>
+  <li>
+    <%= comment.content %>
+    <%= link_to 'Delete Comment', photo_comment_path(@photo, comment), :method => :delete %>
+  </li>
+  <% end %>
+</ol>
+
+<p><%= link_to 'Back to Index', photos_path, class: "btn btn-primary" %></p>

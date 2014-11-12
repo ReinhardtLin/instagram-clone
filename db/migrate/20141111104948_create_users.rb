@@ -1,15 +1,28 @@
 class CreateUsers < ActiveRecord::Migration
   def change
     create_table :users do |t|
-      t.string :email
-      t.string :name
-      t.string :image
+      t.string :email, null: false, default: ""
+      t.string :name, null: false, default: ""
+      t.string :image, null: false, default: ""
 
       t.string :fb_uid
       t.string :fb_token
       t.datetime :fb_expires_at
 
+      # # Recoverable
+      # t.string :reset_password_token
+      # t.datetime :reset_password_sent_at
+
+      # # Trackable
+      # t.integer :sign_in_count, default: 0, null: false
+      # t.datetime :current_sign_in_at
+      # t.datetime :last_sign_in_at
+      # t.string :current_sign_in_ip
+      # t.string :last_sign_in_ip
+
       t.timestamps
     end
+    # add_index :users, :email, unique: true
+    # add_index :users, :reset_password_token, unique: true
   end
 end

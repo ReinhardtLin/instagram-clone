@@ -1,0 +1,21 @@
+<h2><%= @user.name %></h2>
+
+<h2>Photos</h2>
+
+<ul>
+<% @user.photos.each do |p| %>
+  <li>
+    <%= link_to image_tag( p.logo.url(:thumb) ), p.logo.url %>
+    <%= link_to p.title, photo_path(p) %>
+  </li>
+<% end %>
+</ul>
+
+<h2>Comments</h2>
+
+<% @user.comments.each do |c| %>
+  <li><%= link_to truncate(c.content), photo_path(c.photo) %></li>
+<% end %>
+</ul>
+
+<p><%= link_to 'Back to Index', photos_path, class: "btn btn-primary" %></p>
