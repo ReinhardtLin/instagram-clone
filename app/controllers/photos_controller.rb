@@ -7,11 +7,11 @@ class PhotosController < ApplicationController
 
   def new
     @photo = Photo.new
-    @photo.user = current_user
   end
 
   def create
     @photo = Photo.new(photo_params)
+    @photo.user = current_user
     if @photo.save
       # redirect_to :action => :index
       redirect_to photos_url
@@ -25,7 +25,6 @@ class PhotosController < ApplicationController
   end
 
   def edit
-    @photo.user = current_user
   end
 
   def update
@@ -39,7 +38,6 @@ class PhotosController < ApplicationController
 
   def destroy
     @photo.destroy
-    @photo.user = current_user
     redirect_to photos_url
     flash[:alert] = "photo was successfully deleted"
   end

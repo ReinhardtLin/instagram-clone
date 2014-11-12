@@ -4,6 +4,7 @@
     <th>Title</th>
     <th>Author</th>
     <th>Like</th>
+    <th>Follow</th>
     <th>Operation</th>
   </tr>
 
@@ -25,6 +26,18 @@
       <% else %>
         <%= form_for Like.new, :url => photo_likes_path(photo) do |f| %>
           <%= f.submit "Like" %>
+        <% end %>
+      <% end %>
+    </td>
+    <td>
+      <%= photo.follows_count %>
+      <% if follow = photo.find_by_follow(current_user) %>
+        <%= form_for Follow.new, :url => photo_follow_path(photo, follow), :method => :delete do |f| %>
+          <%= f.submit "Unfollow" %>
+        <% end %>
+      <% else %>
+        <%= form_for Follow.new, :url => photo_follows_path(photo) do |f| %>
+          <%= f.submit "Follow" %>
         <% end %>
       <% end %>
     </td>

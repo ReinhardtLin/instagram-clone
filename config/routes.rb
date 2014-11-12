@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :photos do
     resources :comments, :controller => 'photo_comments'
     resources :likes, :controller => 'photo_likes'
+    resources :follows, :controller => 'photo_follows'
   end
 
   resources :users

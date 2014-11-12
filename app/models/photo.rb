@@ -16,6 +16,10 @@ class Photo < ActiveRecord::Base
     self.likes.where( :user => user ).first
   end
 
+  def find_by_follow(user)
+    self.follows.where( :user => user ).first
+  end
+
   def authors
     arr = [self.user]
     arr = arr +  self.comments.map{ |c| c.user }
