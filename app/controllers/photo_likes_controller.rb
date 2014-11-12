@@ -10,7 +10,7 @@ class PhotoLikesController < ApplicationController
       @like.save!
     end
 
-    redirect_to photo_url( @photo )
+    redirect_to :back
   end
 
   def destroy

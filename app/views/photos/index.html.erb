@@ -3,6 +3,7 @@
     <th>Photo</th>
     <th>Title</th>
     <th>Author</th>
+    <th>Like</th>
     <th>Operation</th>
   </tr>
 
@@ -13,6 +14,18 @@
     <td>
       <% photo.authors.each do |a| %>
         <%= link_to a.display_name, user_path(a) %>
+      <% end %>
+    </td>
+    <td>
+      <%= photo.likes_count %>
+      <% if like = photo.find_by_like(current_user) %>
+        <%= form_for Like.new, :url => photo_like_path(photo, like), :method => :delete do |f| %>
+          <%= f.submit "Unlike" %>
+        <% end %>
+      <% else %>
+        <%= form_for Like.new, :url => photo_likes_path(photo) do |f| %>
+          <%= f.submit "Like" %>
+        <% end %>
       <% end %>
     </td>
     <td>

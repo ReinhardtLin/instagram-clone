@@ -9,7 +9,7 @@
   <%= link_to a.display_name, user_path(a) %>
 <% end %>
 
-<h3>Like</h3>
+<h3>Likes</h3>
 <%= @photo.likes_count %>
 
 <% if like = @photo.find_by_like(current_user) %>

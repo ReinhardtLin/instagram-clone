@@ -4,6 +4,8 @@
   <%= render :partial => 'form', :locals => { :f => f } %>
   <%= f.submit 'Update' %>
 <% end %>
+<h3>Likes</h3>
+<%= @photo.likes_count %>
 
 <h3>Comments</h3>
 <ol>
