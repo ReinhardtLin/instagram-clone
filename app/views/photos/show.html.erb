@@ -26,6 +26,11 @@
 
 <% end %>
 
+<h3>Like List</h3>
+<% @photo.likes.each do |l| %>
+  <%= link_to l.user.try(:name), photo_path(l) %>
+<% end %>
+
 
 <h3>Comments</h3>
 <ol>
