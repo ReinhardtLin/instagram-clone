@@ -1,5 +1,5 @@
 <% provide(:title, ": #{@photo.title}") %>
-<%= link_to image_tag( @photo.logo.url(:thumb) ), @photo.logo.url %>
+<%= link_to image_tag( @photo.logo.url(:medium) ), @photo.logo.url %>
 <h3>Photo Title</h3>
 <%= @photo.title %>
 <h3>Photo Description</h3>
@@ -14,7 +14,7 @@
   <% end %>
 </ol>
 
-<h3>New comment</h3>
+<p>New comment</p>
 <%= form_for Comment.new, :url => photo_comments_path(@photo) do |f| %>
   <%= f.text_area :content %>
   <%= f.submit "Reply" %>
