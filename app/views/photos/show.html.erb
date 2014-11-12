@@ -4,12 +4,35 @@
 <%= @photo.title %>
 <h3>Photo Description</h3>
 <%= simple_format(@photo.description) %>
+<h3>Author</h3>
+<% @photo.authors.each do |a| %>
+  <%= link_to a.display_name, user_path(a) %>
+<% end %>
+
+<h3>Like</h3>
+<%= @photo.likes_count %>
+
+<% if like = @photo.find_by_like(current_user) %>
+
+    <%= form_for Like.new, :url => photo_like_path(@photo, like), :method => :delete do |f| %>
+    <%= f.submit "Unlike" %>
+  <% end %>
+
+<% else %>
+
+  <%= form_for Like.new, :url => photo_likes_path(@photo) do |f| %>
+    <%= f.submit "Like" %>
+  <% end %>
+
+<% end %>
+
 
 <h3>Comments</h3>
 <ol>
   <% @photo.comments.each do |comment| %>
   <li>
     <%= comment.content %>
+    <%= link_to 'Delete Comment', photo_comment_path(@photo, comment), :method => :delete %>
   </li>
   <% end %>
 </ol>

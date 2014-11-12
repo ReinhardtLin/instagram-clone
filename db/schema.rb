@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141112055942) do
+ActiveRecord::Schema.define(version: 20141112102656) do
 
   create_table "comments", force: true do |t|
     t.text     "content"
@@ -27,6 +27,8 @@ ActiveRecord::Schema.define(version: 20141112055942) do
   end
 
   create_table "likes", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "photo_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -41,6 +43,7 @@ ActiveRecord::Schema.define(version: 20141112055942) do
     t.string   "logo_content_type"
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
+    t.integer  "likes_count",       default: 0
   end
 
   create_table "users", force: true do |t|
