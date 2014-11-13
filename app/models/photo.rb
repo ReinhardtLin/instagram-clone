@@ -6,9 +6,9 @@ class Photo < ActiveRecord::Base
   has_many :taggings
   has_many :tags, :through => :taggings
 
-  has_many :users, :through => :comments
-  has_many :users, :through => :likes
-  has_many :users, :through => :follows
+  #has_many :commented_users, :through => :comments, :source => :user
+  #has_many :liked_users, :through => :likes, :source => :user
+  #has_many :followed_users, :through => :follows, :source => :user
 
   validates_presence_of :logo_file_name, :title
   has_attached_file :logo, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"

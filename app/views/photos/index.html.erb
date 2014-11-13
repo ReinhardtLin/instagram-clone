@@ -1,3 +1,12 @@
+<% if current_user %>
+  Hi, <%= current_user.name %><br>
+  <%#= link_to "My Photos", photos_path %>
+  <%= link_to 'New Photo', new_photo_path %>
+  <%= link_to "Logout", auth_signout_path, :method => :delete %></a>
+<% else %>
+  <%= link_to "Facebook Login", "/auth/facebook" %></a>
+<% end %>
+
 <table border="1px">
   <tr>
     <th>Photo</th>
@@ -21,37 +30,43 @@
     </td>
     <td>
       <%= photo.likes_count %>
-      <% if like = photo.find_by_like(current_user) %>
-        <%= form_for Like.new, :url => photo_like_path(photo, like), :method => :delete do |f| %>
-          <%= f.submit "Unlike" %>
-        <% end %>
-      <% else %>
-        <%= form_for Like.new, :url => photo_likes_path(photo) do |f| %>
-          <%= f.submit "Like" %>
+      <% if current_user %>
+        <% if like = photo.find_by_like(current_user) %>
+          <%= form_for Like.new, :url => photo_like_path(photo, like), :method => :delete do |f| %>
+            <%= f.submit "Unlike" %>
+          <% end %>
+        <% else %>
+          <%= form_for Like.new, :url => photo_likes_path(photo) do |f| %>
+            <%= f.submit "Like" %>
+          <% end %>
         <% end %>
       <% end %>
     </td>
     <td>
       <%= photo.follows_count %>
-      <% if follow = photo.find_by_follow(current_user) %>
-        <%= form_for Follow.new, :url => photo_follow_path(photo, follow), :method => :delete do |f| %>
-          <%= f.submit "Unfollow" %>
-        <% end %>
-      <% else %>
-        <%= form_for Follow.new, :url => photo_follows_path(photo) do |f| %>
-          <%= f.submit "Follow" %>
+      <% if current_user %>
+        <% if follow = photo.find_by_follow(current_user) %>
+          <%= form_for Follow.new, :url => photo_follow_path(photo, follow), :method => :delete do |f| %>
+            <%= f.submit "Unfollow" %>
+          <% end %>
+        <% else %>
+          <%= form_for Follow.new, :url => photo_follows_path(photo) do |f| %>
+            <%= f.submit "Follow" %>
+          <% end %>
         <% end %>
       <% end %>
     </td>
     <td>
       <%= link_to 'View Photo', photo_path(photo) %>
-      <%= link_to 'Edit Photo', edit_photo_path(photo) %>
-      <%= link_to 'Delete Photo', photo_path(photo), :method => :delete %>
+
+      <% if photo.can_delete_by?(current_user) %>
+        <%= link_to 'Edit Photo', edit_photo_path(photo) %>
+        <%= link_to 'Delete Photo', photo_path(photo), :method => :delete %>
+      <% end %>
+
     </td>
   </tr>
   <% end %>
 </table>
-
-<%= link_to 'New Photo', new_photo_path %>
-<%= link_to "Logout", auth_signout_path, :method => :delete %></a>
+<%#= link_to "Logout", auth_signout_path, :method => :delete %></a>
 <%#= paginate @photos %>

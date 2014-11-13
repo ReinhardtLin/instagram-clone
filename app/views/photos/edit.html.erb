@@ -7,13 +7,13 @@
 <h3>Likes</h3>
 <%= @photo.likes_count %>
 <% @photo.likes.each do |l| %>
-  <%= link_to l.user.try(:name), photo_path(l) %>
+  <%= link_to l.user.try(:name), user_path(l.user) %>
 <% end %>
 
 <h3>Follows</h3>
 <%= @photo.follows_count %>
 <% @photo.follows.each do |f| %>
-  <%= link_to f.user.try(:name), photo_path(f) %>
+  <%= link_to f.user.try(:name), user_path(f.user) %>
 <% end %>
 
 <h3>Comments</h3>

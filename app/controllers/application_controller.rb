@@ -7,6 +7,13 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  def check_login
+    unless current_user
+      flash[:notice] = "Please login!"
+      redirect_to root_path
+    end
+  end
+
   def current_user
     @current_user = User.find(session[:user_id]) if session[:user_id]
   end

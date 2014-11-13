@@ -15,36 +15,39 @@
 
 <h3>Likes</h3>
 <%= @photo.likes_count %>
-<% if like = @photo.find_by_like(current_user) %>
-    <%= form_for Like.new, :url => photo_like_path(@photo, like), :method => :delete do |f| %>
-    <%= f.submit "Unlike" %>
+
+
+  <% if like = @photo.find_by_like(current_user) %>
+      <%= form_for Like.new, :url => photo_like_path(@photo, like), :method => :delete do |f| %>
+      <%= f.submit "Unlike" %>
+    <% end %>
+  <% else %>
+    <%= form_for Like.new, :url => photo_likes_path(@photo) do |f| %>
+      <%= f.submit "Like" %>
+    <% end %>
   <% end %>
-<% else %>
-  <%= form_for Like.new, :url => photo_likes_path(@photo) do |f| %>
-    <%= f.submit "Like" %>
-  <% end %>
-<% end %>
 
 <h3>Like List</h3>
 <% @photo.likes.each do |l| %>
-  <%= link_to l.user.try(:name), photo_path(l) %>
+  <%= link_to l.user.try(:name), user_path(l.user) %>
 <% end %>
 
 <h3>Follows</h3>
 <%= @photo.follows_count %>
-<% if follow = @photo.find_by_follow(current_user) %>
-    <%= form_for Follow.new, :url => photo_follow_path(@photo, follow), :method => :delete do |f| %>
-    <%= f.submit "Unfollow" %>
+
+  <% if follow = @photo.find_by_follow(current_user) %>
+      <%= form_for Follow.new, :url => photo_follow_path(@photo, follow), :method => :delete do |f| %>
+      <%= f.submit "Unfollow" %>
+    <% end %>
+  <% else %>
+    <%= form_for Follow.new, :url => photo_follows_path(@photo) do |f| %>
+      <%= f.submit "Follow" %>
+    <% end %>
   <% end %>
-<% else %>
-  <%= form_for Follow.new, :url => photo_follows_path(@photo) do |f| %>
-    <%= f.submit "Follow" %>
-  <% end %>
-<% end %>
 
 <h3>Follow List</h3>
 <% @photo.follows.each do |f| %>
-  <%= link_to f.user.try(:name), photo_path(f) %>
+  <%= link_to f.user.try(:name), user_path(f.user) %>
 <% end %>
 
 <h3>Comments</h3>
@@ -52,15 +55,19 @@
   <% @photo.comments.each do |comment| %>
   <li>
     <%= comment.content %>
-    <%= link_to 'Delete Comment', photo_comment_path(@photo, comment), :method => :delete %>
+
+      <%= link_to 'Delete Comment', photo_comment_path(@photo, comment), :method => :delete %>
+
   </li>
   <% end %>
 </ol>
 
-<p>New comment</p>
-<%= form_for Comment.new, :url => photo_comments_path(@photo) do |f| %>
-  <%= f.text_area :content %>
-  <%= f.submit "Reply" %>
-<% end %>
+
+  <p>New comment</p>
+  <%= form_for Comment.new, :url => photo_comments_path(@photo) do |f| %>
+    <%= f.text_area :content %>
+    <%= f.submit "Reply" %>
+  <% end %>
+
 
 <p><%= link_to 'Back to Index', photos_path, class: "btn btn-primary" %></p>

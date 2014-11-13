@@ -1,5 +1,9 @@
 class PhotosController < ApplicationController
-    before_action :set_photo, :only => [ :show, :edit, :update, :destroy]
+
+  before_action :check_login, :except => [:index]
+  before_action :set_photo, :only => [ :show, :edit, :update, :destroy]
+
+  before_action :require_photo_author!, :only => [:edit, :update, :destroy]
 
   def index
     if params[:tag]
@@ -16,10 +20,10 @@ class PhotosController < ApplicationController
   def create
     @photo = Photo.new(photo_params)
     @photo.user = current_user
+
     if @photo.save
-      # redirect_to :action => :index
-      redirect_to photos_url
       flash[:notice] = "photo was successfully created"
+      redirect_to photos_url
     else
       render :action => :new
     end
@@ -41,16 +45,20 @@ class PhotosController < ApplicationController
   end
 
   def destroy
-    @photo.destroy
+    @photo.destroy if @photo.user == current_user
+
     redirect_to photos_url
     flash[:alert] = "photo was successfully deleted"
   end
 
-  def tag_path
-
-  end
-
   private
+
+  def require_photo_author!
+    unless @photo.can_delete_by?(current_user)
+      flash[:alert] = "Yo! man! you can't do this!"
+      redirect_to root_path
+    end
+  end
 
   def photo_params
     params.require(:photo).permit(:logo, :title, :description, :user_id, :all_tags)

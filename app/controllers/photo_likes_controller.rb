@@ -1,4 +1,6 @@
 class PhotoLikesController < ApplicationController
+
+  before_action :check_login
   before_action :find_photo
 
   def create

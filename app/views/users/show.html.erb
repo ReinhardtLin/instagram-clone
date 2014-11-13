@@ -14,12 +14,12 @@
 
 <h3>Photo I Like</h3>
 <% @user.likes.each do |l| %>
-  <%= link_to l.photo.try(:title), user_path(l) %>
+  <%= link_to l.photo.try(:title), photo_path(l) %>
 <% end %>
 
 <h3>Photo I Follow</h3>
 <% @user.follows.each do |f| %>
-  <%= link_to f.photo.try(:title), user_path(f) %>
+  <%= link_to f.photo.try(:title), photo_path(f) %>
 <% end %>
 
 <h3>Photo I Comment</h3>
