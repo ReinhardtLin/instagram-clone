@@ -7,6 +7,9 @@ gem 'omniauth-facebook'
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
+
+  gem "letter_opener"
+
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

@@ -7,6 +7,9 @@ class PhotoCommentsController < ApplicationController
     @comment = @photo.comments.build( comment_params )
     @comment.user = current_user
     if @comment.save
+
+      @comment.notify_followers
+
       redirect_to photo_url( @photo )
     else
       render "/photos/show"
