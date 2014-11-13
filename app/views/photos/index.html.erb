@@ -2,6 +2,7 @@
   <tr>
     <th>Photo</th>
     <th>Title</th>
+    <th>Tag</th>
     <th>Author</th>
     <th>Like</th>
     <th>Follow</th>
@@ -12,6 +13,7 @@
   <tr>
     <td><%= link_to image_tag( photo.logo.url(:thumb) ), photo.logo.url %></td>
     <td><%= photo.title %></td>
+    <td><%= raw tag_links(photo.all_tags)%></td>
     <td>
       <% photo.authors.each do |a| %>
         <%= link_to a.display_name, user_path(a) %>

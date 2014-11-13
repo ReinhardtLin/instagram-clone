@@ -2,6 +2,10 @@
     <%= f.file_field :logo %>
   </div>
 
+  <div class="large-10 large-centered columns">
+      <%= f.text_field :all_tags, placeholder: "Tags separated with comma" %>
+  </div>
+
   <%= f.label :title, 'Title' %>
   <%= f.text_field :title %>
 

@@ -12,10 +12,23 @@
 <% end %>
 </ul>
 
-<h3>Comments</h3>
+<h3>Photo I Like</h3>
+<% @user.likes.each do |l| %>
+  <%= link_to l.photo.try(:title), user_path(l) %>
+<% end %>
 
+<h3>Photo I Follow</h3>
+<% @user.follows.each do |f| %>
+  <%= link_to f.photo.try(:title), user_path(f) %>
+<% end %>
+
+<h3>Photo I Comment</h3>
 <% @user.comments.each do |c| %>
-  <li><%= link_to truncate(c.content), photo_path(c.photo) %></li>
+  <li>
+    <%= link_to c.photo.try(:title), photo_path(c.photo) %>
+    <%= truncate(c.content) %>
+    <%#= link_to 'Delete Comment', user_comment_path(@user, c), :method => :delete %>
+  </li>
 <% end %>
 </ul>
 

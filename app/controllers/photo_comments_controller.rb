@@ -16,7 +16,7 @@ class PhotoCommentsController < ApplicationController
 
     if @comment.can_delete_by?(current_user)
       @comment.destroy
-      redirect_to photo_url( @photo )
+      redirect_to :back
     end
   end
 

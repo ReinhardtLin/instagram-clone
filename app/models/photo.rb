@@ -3,6 +3,8 @@ class Photo < ActiveRecord::Base
   has_many :comments
   has_many :likes
   has_many :follows
+  has_many :taggings
+  has_many :tags, :through => :taggings
 
   has_many :users, :through => :comments
   has_many :users, :through => :likes
@@ -28,5 +30,19 @@ class Photo < ActiveRecord::Base
 
   def can_delete_by?(user)
     (self.user == user ) || user.admin?
+  end
+
+  def all_tags=(names)
+    self.tags = names.split(",").map do |name|
+      Tag.where(name: name.strip).first_or_create!
+    end
+  end
+
+  def all_tags
+    self.tags.map(&:name).join(", ")
+  end
+
+  def self.tagged_with(name)
+    Tag.find_by_name!(name).photos
   end
 end

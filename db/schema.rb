@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141112120058) do
+ActiveRecord::Schema.define(version: 20141113030522) do
 
   create_table "comments", force: true do |t|
     t.text     "content"
@@ -47,6 +47,22 @@ ActiveRecord::Schema.define(version: 20141112120058) do
     t.datetime "logo_updated_at"
     t.integer  "likes_count",       default: 0
     t.integer  "follows_count",     default: 0
+  end
+
+  create_table "taggings", force: true do |t|
+    t.integer  "photo_id"
+    t.integer  "tag_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "taggings", ["photo_id"], name: "index_taggings_on_photo_id"
+  add_index "taggings", ["tag_id"], name: "index_taggings_on_tag_id"
+
+  create_table "tags", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", force: true do |t|

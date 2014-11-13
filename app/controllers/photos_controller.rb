@@ -2,7 +2,11 @@ class PhotosController < ApplicationController
     before_action :set_photo, :only => [ :show, :edit, :update, :destroy]
 
   def index
-    @photos = Photo.all
+    if params[:tag]
+      @photos = Photo.tagged_with(params[:tag])
+    else
+      @photos = Photo.all
+    end
   end
 
   def new
@@ -42,10 +46,14 @@ class PhotosController < ApplicationController
     flash[:alert] = "photo was successfully deleted"
   end
 
+  def tag_path
+
+  end
+
   private
 
   def photo_params
-    params.require(:photo).permit(:logo, :title, :description, :user_id)
+    params.require(:photo).permit(:logo, :title, :description, :user_id, :all_tags)
   end
 
   def set_photo

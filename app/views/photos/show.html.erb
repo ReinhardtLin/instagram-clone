@@ -4,6 +4,10 @@
 <%= @photo.title %>
 <h3>Photo Description</h3>
 <%= simple_format(@photo.description) %>
+
+<h3>Tags</h3>
+<%= @photo.all_tags %>
+
 <h3>Author</h3>
 <% @photo.authors.each do |a| %>
   <%= link_to a.display_name, user_path(a) %>
