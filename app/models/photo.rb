@@ -29,7 +29,7 @@ class Photo < ActiveRecord::Base
   end
 
   def can_delete_by?(user)
-    (self.user == user ) || user.admin?
+    (self.user == user )
   end
 
   def all_tags=(names)

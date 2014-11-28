@@ -56,8 +56,8 @@ ActiveRecord::Schema.define(version: 20141113030522) do
     t.datetime "updated_at"
   end
 
-  add_index "taggings", ["photo_id"], name: "index_taggings_on_photo_id"
-  add_index "taggings", ["tag_id"], name: "index_taggings_on_tag_id"
+  add_index "taggings", ["photo_id"], name: "index_taggings_on_photo_id", using: :btree
+  add_index "taggings", ["tag_id"], name: "index_taggings_on_tag_id", using: :btree
 
   create_table "tags", force: true do |t|
     t.string   "name"
